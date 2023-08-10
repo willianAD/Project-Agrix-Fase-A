@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Application main class.
  */
-
 @SpringBootApplication
 public class AgrixApplication {
 
