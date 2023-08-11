@@ -1,6 +1,6 @@
 package com.betrybe.agrix.controllers;
 
-//import com.betrybe.agrix.controllers.dto.FarmDto;
+import com.betrybe.agrix.controllers.dto.FarmDto;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.service.FarmService;
 import java.util.List;
@@ -33,8 +33,8 @@ public class FarmController {
  * Método createFarm.
  */
   @PostMapping()
-  public ResponseEntity<Farm> createFarm(@RequestBody Farm farmDto) {
-    Farm newFarm = farmService.insertFarm(farmDto);
+  public ResponseEntity<Farm> createFarm(@RequestBody FarmDto.Creation farmDto) {
+    Farm newFarm = farmService.insertFarm(farmDto.toFarm());
 
     return ResponseEntity.status(HttpStatus.CREATED).body(newFarm);
   }

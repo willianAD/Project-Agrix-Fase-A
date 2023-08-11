@@ -31,7 +31,7 @@ public class CropService {
   }
   
   //Método getFarmById.
-  public Optional<Crop> getCropById(Long id) {
-    return cropRepository.findById(id);
+  public Optional<Crop> getCropById(Long farmId) {
+    return cropRepository.findById(farmId);
   }
 }

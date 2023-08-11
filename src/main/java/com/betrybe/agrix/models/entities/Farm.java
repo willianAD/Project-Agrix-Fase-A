@@ -1,5 +1,6 @@
 package com.betrybe.agrix.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class Farm {
   private String name;
   private Double size;
   
+  @JsonIgnore
   @OneToMany(mappedBy = "farm")
   private List<Crop> crops;
 
@@ -29,16 +31,16 @@ public class Farm {
   /**
  * Metodo contrutor.
 */
-  //  public Farm(Long id, String name, Double size) {
-  //    this.id = id;
-  //    this.name = name;
-  //    this.size = size;
-  //  }
+  public Farm(Long id, String name, Double size) {
+    this.id = id;
+    this.name = name;
+    this.size = size;
+  }
 
-  //  public Farm(String name, double size) {
-  //    this.setName(name);
-  //    this.setSize(size);
-  //  }
+  public Farm(String name, double size) {
+    this.setName(name);
+    this.setSize(size);
+  }
   
   public Long getId() {
     return id;

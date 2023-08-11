@@ -1,10 +1,12 @@
 package com.betrybe.agrix.controllers;
 
+import com.betrybe.agrix.controllers.dto.CropDto;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.service.CropService;
 import com.betrybe.agrix.service.FarmService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +35,12 @@ public class CropController {
  * Método getAllCrops.
  */
   @GetMapping("/crops")
-  public ResponseEntity<List<Crop>> getAllCrops() {
+  public ResponseEntity<?> getAllCrops() {
     List<Crop> allCrops = cropService.getAllCrops();
 
-    return ResponseEntity.ok(allCrops);
+    List<CropDto> cropDto = allCrops.stream().map(crop -> new CropDto(crop.getId(), crop
+        .getName(), crop.getPlantedArea(), crop.getFarmId())).collect(Collectors.toList());
+    return ResponseEntity.ok(cropDto);
   }
   
   /**
