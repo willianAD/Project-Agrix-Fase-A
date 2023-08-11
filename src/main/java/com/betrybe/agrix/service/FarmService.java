@@ -1,8 +1,9 @@
 package com.betrybe.agrix.service;
 
 import com.betrybe.agrix.models.entities.Farm;
-import com.betrybe.agrix.models.repositories.FarmsRepository;
+import com.betrybe.agrix.models.repositories.FarmRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,20 +12,25 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FarmService {
-  private FarmsRepository farmsRepository;
+  private FarmRepository farmRepository;
   
   @Autowired
-  public FarmService(FarmsRepository farmsRepository) {
-    this.farmsRepository = farmsRepository;
+  public FarmService(FarmRepository farmRepository) {
+    this.farmRepository = farmRepository;
   }
   
   //Método insertFarm.
   public Farm insertFarm(Farm farm) {
-    return farmsRepository.save(farm);
+    return farmRepository.save(farm);
   }
   
   //Método getAllFarms.
   public List<Farm> getAllFarms() {
-    return farmsRepository.findAll();
+    return farmRepository.findAll();
+  }
+  
+  //Método getFarmById.
+  public Optional<Farm> getFarmById(Long id) {
+    return farmRepository.findById(id);
   }
 }

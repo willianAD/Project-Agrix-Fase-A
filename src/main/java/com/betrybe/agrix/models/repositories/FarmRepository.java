@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * Interface FarmsRepository.
  */
 @Repository
-public interface FarmsRepository extends JpaRepository<Farm, Long> {
+public interface FarmRepository extends JpaRepository<Farm, Long> {
 }
