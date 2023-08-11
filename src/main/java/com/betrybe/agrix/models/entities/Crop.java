@@ -40,6 +40,9 @@ public class Crop {
     this.farm = farm;
   }
   
+  public Crop(Long id, String name, double plantedArea, Long farmId) {
+  }
+
   public Long getId() {
     return id;
   }

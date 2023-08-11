@@ -5,21 +5,21 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+//import jakarta.persistence.Table;
 import java.util.List;
 
 /**
  * Class Farm.
  */
 @Entity
-@Table(name = "farms")
+//@Table(name = "farms")
 public class Farm {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  private double size;
+  private Double size;
   
   @OneToMany(mappedBy = "farm")
   private List<Crop> crops;
@@ -29,11 +29,11 @@ public class Farm {
   /**
  * Metodo contrutor.
 */
-  public Farm(long id, String name, double size) {
-    this.id = id;
-    this.setName(name);
-    this.setSize(size);
-  }
+  //  public Farm(Long id, String name, Double size) {
+  //    this.id = id;
+  //    this.name = name;
+  //    this.size = size;
+  //  }
 
   //  public Farm(String name, double size) {
   //    this.setName(name);
@@ -60,7 +60,7 @@ public class Farm {
     return size;
   }
 
-  public void setSize(double size) {
+  public void setSize(Double size) {
     this.size = size;
   }
   

@@ -7,6 +7,6 @@ import com.betrybe.agrix.models.entities.Crop;
  */
 public record CropDto(Long id, String name, double plantedArea, Long farmId) {
   public Crop toCrop() {
-    return new Crop(id, name, plantedArea, null);
+    return new Crop(id, name, plantedArea, farmId);
   }
 }
