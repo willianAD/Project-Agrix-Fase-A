@@ -5,14 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-//import jakarta.persistence.Table;
+import jakarta.persistence.Table;
 import java.util.List;
 
 /**
  * Class Farm.
  */
 @Entity
-//@Table(name = "farms")
+@Table(name = "farms")
 public class Farm {
 
   @Id
