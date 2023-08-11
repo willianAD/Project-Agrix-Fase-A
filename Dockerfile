@@ -5,9 +5,9 @@ FROM maven:3-openjdk-17 as build-image
 WORKDIR /to-build-app
 # copia o código-fonte para o diretório de trabalho
 COPY . .
+RUN dependency:go-offline
 # executa o comando de empacotamento do maven
 RUN ./mvnw clean package 
-
 # 2º estágio
 # com imagem JRE, limpa e mais leve
 FROM eclipse-temurin:17-jre-alpine
