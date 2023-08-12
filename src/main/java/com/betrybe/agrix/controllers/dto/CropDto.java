@@ -5,12 +5,29 @@ import com.betrybe.agrix.models.entities.Crop;
 /**
  * CropDTO.
  */
-public record CropDto(Long id, String name, double plantedArea, Long farmId) {
-  public Crop toCrop(Long farmId) {
-    return new Crop(id, name, plantedArea, farmId);
-  }
-
+public record CropDto(Long id, String name, double plantedArea) {
+  /**
+   * Set crops.
+   */
   public Crop toCrop() {
-    return new Crop(id, name, plantedArea, farmId);
+    Crop crop = new Crop();
+    crop.setName(name);
+    crop.setPlantedArea(plantedArea);
+    return crop;
+  }
+  
+  /**
+ * FromEntiti.
+ */
+  public static record FromEntiti(Long id, String name, double plantedArea, Long farmId) {
+  
+  }
+  
+  /**
+ * FromEntiti.
+ */
+  public static FromEntiti toResponse(Crop crop) {
+    return new FromEntiti(crop.getId(), crop.getName(), crop.getPlantedArea(), crop
+      .getFarm().getId());
   }
 }

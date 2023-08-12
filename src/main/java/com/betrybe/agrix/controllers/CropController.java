@@ -2,6 +2,7 @@ package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.controllers.dto.CropDto;
 import com.betrybe.agrix.models.entities.Crop;
+import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.service.CropService;
 import com.betrybe.agrix.service.FarmService;
 import java.util.List;
@@ -38,8 +39,7 @@ public class CropController {
   public ResponseEntity<?> getAllCrops() {
     List<Crop> allCrops = cropService.getAllCrops();
 
-    List<CropDto> cropDto = allCrops.stream().map(crop -> new CropDto(crop.getId(), crop
-        .getName(), crop.getPlantedArea(), crop.getFarmId())).collect(Collectors.toList());
+    List<CropDto.FromEntiti> cropDto = allCrops.stream().map(crop -> new CropDto.toResponse(crop)).collect(Collectors.toList());
     return ResponseEntity.ok(cropDto);
   }
   
@@ -53,6 +53,12 @@ public class CropController {
     if (optionalCrop.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plantação não encontrada!");
     }
+    
+    Crop crop = optionalCrop.get();
+    
+    Farm farm = crop.getFarm();
+    
+    Long id = farm.getId();
     
     return ResponseEntity.ok(optionalCrop);
   }

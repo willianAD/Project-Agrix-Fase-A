@@ -26,18 +26,18 @@ public class Crop {
   
   @ManyToOne
   @JoinColumn(name = "farm_id")
-  private Long farmId;
+  private Farm farm;
 
   public Crop() {}
   
   /**
  * Metodo contrutor.
  */
-  public Crop(Long id, String name, Double plantedArea, Long farmId) {
+  public Crop(Long id, String name, Double plantedArea, Farm farm) {
     this.id = id;
     this.name = name;
     this.plantedArea = plantedArea;
-    this.farmId = farmId;
+    this.farm = farm;
   }
 
   public Long getId() {
@@ -64,11 +64,11 @@ public class Crop {
     this.plantedArea = plantedArea;
   }
 
-  public Long getFarmId() {
-    return farmId;
+  public Farm getFarm() {
+    return farm;
   }
 
-  public void setFarmId(Long farmId) {
-    this.farmId = farmId;
+  public void setFarm(Farm farm) {
+    this.farm = farm;
   }
 }
