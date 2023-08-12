@@ -7,7 +7,6 @@ import com.betrybe.agrix.service.CropService;
 import com.betrybe.agrix.service.FarmService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,7 @@ public class CropController {
   public ResponseEntity<?> getAllCrops() {
     List<Crop> allCrops = cropService.getAllCrops();
 
-    List<CropDto.FromEntiti> cropDto = allCrops.stream().map(crop -> new CropDto.toResponse(crop)).collect(Collectors.toList());
+    List<CropDto.ToResponse> cropDto = allCrops.stream().map(CropDto::fromEntity).toList();
     return ResponseEntity.ok(cropDto);
   }
   
@@ -58,8 +57,8 @@ public class CropController {
     
     Farm farm = crop.getFarm();
     
-    Long id = farm.getId();
+    Long farmId = farm.getId();
     
-    return ResponseEntity.ok(optionalCrop);
+    return ResponseEntity.ok(farmId);
   }
 }

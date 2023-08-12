@@ -19,15 +19,15 @@ public record CropDto(Long id, String name, double plantedArea) {
   /**
  * FromEntiti.
  */
-  public static record FromEntiti(Long id, String name, double plantedArea, Long farmId) {
+  public static record ToResponse(Long id, String name, double plantedArea, Long farmId) {
   
   }
   
   /**
  * FromEntiti.
  */
-  public static FromEntiti toResponse(Crop crop) {
-    return new FromEntiti(crop.getId(), crop.getName(), crop.getPlantedArea(), crop
+  public static ToResponse fromEntity(Crop crop) {
+    return new ToResponse(crop.getId(), crop.getName(), crop.getPlantedArea(), crop
       .getFarm().getId());
   }
 }
