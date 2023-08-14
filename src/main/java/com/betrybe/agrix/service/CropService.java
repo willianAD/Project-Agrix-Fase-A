@@ -21,8 +21,8 @@ public class CropService {
   }
   
   //Método insertFarm.
-  public Crop insertCrop(Crop farm) {
-    return cropRepository.save(farm);
+  public Crop insertCrop(Crop crop) {
+    return cropRepository.save(crop);
   }
   
   //Método getAllFarms.

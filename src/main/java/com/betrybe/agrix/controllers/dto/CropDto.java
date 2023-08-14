@@ -22,10 +22,7 @@ public record CropDto(Long id, String name, double plantedArea) {
   public static record ToResponse(Long id, String name, double plantedArea, Long farmId) {
   
   }
-  
-  /**
- * FromEntiti.
- */
+
   public static ToResponse fromEntity(Crop crop) {
     return new ToResponse(crop.getId(), crop.getName(), crop.getPlantedArea(), crop
       .getFarm().getId());

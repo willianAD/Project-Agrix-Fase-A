@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,12 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CropController {
 
   private CropService cropService;
-  //  private FarmService farmService;
+  private FarmService farmService;
   
   @Autowired
   public CropController(CropService cropService, FarmService farmService) {
     this.cropService = cropService;
-    //    this.farmService = farmService;
+    this.farmService = farmService;
   }
   
   /**
@@ -48,17 +50,31 @@ public class CropController {
   @GetMapping("/crops/{id}")
   public ResponseEntity<?> getCropById(@PathVariable Long id) {
     Optional<Crop> optionalCrop = cropService.getCropById(id);
-
     if (optionalCrop.isEmpty()) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plantação não encontrada!");
     }
-    
-    Crop crop = optionalCrop.get();
-    
-    Farm farm = crop.getFarm();
-    
-    Long farmId = farm.getId();
-    
-    return ResponseEntity.ok(farmId);
+    return optionalCrop.map(crop -> {
+      CropDto.ToResponse response = CropDto.fromEntity(crop);
+      return ResponseEntity.ok(response);
+    }).orElse(ResponseEntity.notFound().build());
+  }
+  
+  /**
+ * Método createCrop.
+ */
+  @PostMapping("/farms/{farmId}/crops")
+  public ResponseEntity<?> createCrop(@PathVariable Long farmId,
+      @RequestBody CropDto cropDto) {
+    Optional<Farm> optionalFarm = farmService.getFarmById(farmId);
+    if (optionalFarm.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fazenda não encontrada!");
+    }
+    return optionalFarm.map(farm -> {
+      Crop crop = cropDto.toCrop();
+      crop.setFarm(farm);
+      Crop savedCrop = cropService.insertCrop(crop);
+      CropDto.ToResponse response = CropDto.fromEntity(savedCrop);
+      return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }).orElse(ResponseEntity.notFound().build());
   }
 }
