@@ -77,4 +77,18 @@ public class CropController {
       return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }).orElse(ResponseEntity.notFound().build());
   }
+  
+  /**
+ * Método getCropFarm.
+ */
+  @GetMapping("/farms/{farmId}/crops")
+  public ResponseEntity<?> getCropFarm(@PathVariable Long farmId) {
+    Optional<Farm> optionalFarm = farmService.getFarmById(farmId);
+    if (optionalFarm.isEmpty()) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fazenda não encontrada!");
+    }
+    List<Crop> crops = optionalFarm.get().getCrops();
+    List<CropDto.ToResponse> cropResponse = crops.stream().map(CropDto::fromEntity).toList();
+    return ResponseEntity.ok(cropResponse);
+  }
 }
